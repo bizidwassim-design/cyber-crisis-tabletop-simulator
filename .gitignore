@@ -1,0 +1,9 @@
+# Node (no dependencies are committed; html-validate runs through npx)
+node_modules/
+package-lock.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

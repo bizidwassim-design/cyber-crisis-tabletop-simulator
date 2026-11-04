@@ -1,0 +1,301 @@
+{
+  "schema": "cyber-crisis-tabletop/1.0",
+  "organisation": "Northwind Logistics (fictional)",
+  "scenario": {
+    "id": "bec-bank-details",
+    "title": "The new bank details",
+    "type": "Business email compromise and payment fraud"
+  },
+  "startedAt": "2026-11-04T09:00:00Z",
+  "finishedAt": "2026-11-04T10:00:00Z",
+  "timed": true,
+  "secondsPerDecision": 90,
+  "names": {
+    "ciso": "A. Martin",
+    "cio": "R. Haddad",
+    "legal": "S. Tremblay",
+    "facilitator": "J. Okafor"
+  },
+  "score": {
+    "got": 21,
+    "max": 28,
+    "pct": 75,
+    "band": {
+      "key": "developing",
+      "label": "Developing",
+      "text": "Core decisions were right, with gaps in timing, communication or a few calls to revisit."
+    }
+  },
+  "dimensions": {
+    "decision": 71,
+    "timeliness": 86,
+    "communication": 71
+  },
+  "roles": [
+    {
+      "key": "ciso",
+      "role": "CISO",
+      "name": "A. Martin",
+      "decisions": 2,
+      "pct": 88
+    },
+    {
+      "key": "cio",
+      "role": "CIO",
+      "name": "R. Haddad",
+      "decisions": 2,
+      "pct": 50
+    },
+    {
+      "key": "legal",
+      "role": "Legal counsel",
+      "name": "S. Tremblay",
+      "decisions": 3,
+      "pct": 83
+    }
+  ],
+  "meters": {
+    "ops": 98,
+    "data": 95,
+    "legal": 100,
+    "rep": 95
+  },
+  "uninsuredCost": 655000,
+  "bestDecisions": 4,
+  "timeouts": 1,
+  "averageSeconds": 63,
+  "log": [
+    {
+      "inject": "B1",
+      "clock": "Tue 09:30 · T+0:00",
+      "title": "The payment that never arrived",
+      "lead": "legal",
+      "choice": "Wait for the internal investigation to confirm fraud before involving the bank.",
+      "seconds": 84,
+      "timedOut": false,
+      "informed": [
+        "bank",
+        "law",
+        "cfo"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 1,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "The investigation confirms fraud at 15:00. By then the receiving bank has processed two outgoing transfers."
+    },
+    {
+      "inject": "B2",
+      "clock": "Tue 10:00 · T+0:30",
+      "title": "Whose mailbox?",
+      "lead": "ciso",
+      "choice": "Treat the clerk's mailbox as compromised: revoke sessions, reset the password, remove the rule and any MFA method or app consent the attacker added, then hunt the tenant for the same rule pattern and sign-ins. Warn Contoso by phone that their mailbox is compromised.",
+      "seconds": 52,
+      "timedOut": false,
+      "informed": [
+        "customers",
+        "exec"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "Two more mailboxes with the same rule are found in Finance and cleaned. Contoso's IT starts its own response after your call."
+    },
+    {
+      "inject": "B3",
+      "clock": "Tue 10:30 · T+1:00",
+      "title": "How they got in",
+      "lead": "cio",
+      "choice": "No decision in time",
+      "seconds": 90,
+      "timedOut": true,
+      "informed": [],
+      "missed": [
+        "staff"
+      ],
+      "note": "",
+      "score": {
+        "decision": 0,
+        "timeliness": 0,
+        "communication": 0
+      },
+      "points": 0,
+      "max": 4,
+      "consequence": "No decision was recorded in time; legacy authentication stays open across the tenant."
+    },
+    {
+      "inject": "B4",
+      "clock": "Tue 12:00 · T+2:30",
+      "title": "What did they read?",
+      "lead": "legal",
+      "choice": "Run a scoped search of the mailbox audit log for items accessed and synchronised during the eleven days, record the awareness time, and assess the risk to individuals against the 72-hour clock.",
+      "seconds": 61,
+      "timedOut": false,
+      "informed": [
+        "dpo"
+      ],
+      "missed": [
+        "insurer"
+      ],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 0
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "The audit log shows the attacker synchronised the whole mailbox. The DPO assesses a risk to individuals and schedules the regulator notice within the deadline."
+    },
+    {
+      "inject": "B5",
+      "clock": "Tue 14:30 · T+5:00",
+      "title": "Who owes what?",
+      "lead": "legal",
+      "choice": "Notify the insurer under the crime and social-engineering cover, review the contract's payment-change clauses with counsel, and answer Contoso in writing without admitting liability, proposing a joint review of their compromised mailbox.",
+      "seconds": 73,
+      "timedOut": false,
+      "informed": [
+        "insurer",
+        "customers",
+        "cfo"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "The insurer accepts the claim under the social-engineering sub-limit. Contoso agrees to a joint review, and deliveries continue."
+    },
+    {
+      "inject": "B6",
+      "clock": "Tue 16:30 · T+7:00",
+      "title": "Your mailbox, their fraud",
+      "lead": "ciso",
+      "choice": "Publish a generic fraud warning on the website.",
+      "seconds": 45,
+      "timedOut": false,
+      "informed": [
+        "customers",
+        "comms",
+        "exec"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 1,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "Few customers see it; a second customer pays CAD 40,000 to the attacker the next day."
+    },
+    {
+      "inject": "B7",
+      "clock": "Wed 09:30 · T+24:00",
+      "title": "Never again",
+      "lead": "cio",
+      "choice": "Call back on a known number for any bank-detail change, dual approval for changes to the ERP supplier master, alerts on master-data changes and new payees, legacy authentication blocked, and inbox-rule detection in the SOC.",
+      "seconds": 38,
+      "timedOut": false,
+      "informed": [
+        "exec",
+        "staff",
+        "cfo"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "The board approves the package. The first alert fires a month later on a real change request, and the call-back works."
+    }
+  ],
+  "actions": [
+    {
+      "inject": "B1",
+      "owner": "legal",
+      "action": "In payment fraud the first hours decide what can be recovered; call the bank on suspicion.",
+      "refs": [
+        {
+          "doc": "playbooks/data-breach-personal-data.md",
+          "anchor": "4-decision-points",
+          "label": "Data breach · D7 (law enforcement)"
+        },
+        {
+          "doc": "playbooks/supply-chain-vendor-compromise.md",
+          "anchor": "4-decision-points",
+          "label": "Supply chain · D1"
+        }
+      ]
+    },
+    {
+      "inject": "B3",
+      "owner": "cio",
+      "action": "No decision was made in time: Close the access path the attacker used for every account that shares it, then verify with sign-in monitoring.",
+      "refs": [
+        {
+          "doc": "playbooks/privileged-account-compromise.md",
+          "anchor": "4-decision-points",
+          "label": "Privileged account compromise · D4"
+        }
+      ]
+    },
+    {
+      "inject": "B3",
+      "owner": "cio",
+      "action": "Add All staff to the notification list for this decision.",
+      "refs": []
+    },
+    {
+      "inject": "B4",
+      "owner": "legal",
+      "action": "Add Cyber insurer to the notification list for this decision.",
+      "refs": []
+    },
+    {
+      "inject": "B6",
+      "owner": "ciso",
+      "action": "Warn the people who were actually targeted, directly.",
+      "refs": [
+        {
+          "doc": "playbooks/supply-chain-vendor-compromise.md",
+          "anchor": "4-decision-points",
+          "label": "Supply chain · D5"
+        },
+        {
+          "doc": "playbooks/data-breach-personal-data.md",
+          "anchor": "6-communication-templates",
+          "label": "Data breach · communication templates"
+        }
+      ]
+    }
+  ],
+  "hotwash": [
+    "How long did it take from the supplier's call to the bank's recall request?",
+    "Which channel did we use to verify facts, and could the attacker read it?",
+    "Who knew that legacy authentication was still allowed, and why was it?",
+    "Which customers were told directly, and who decided?",
+    "What single control would have stopped this payment?"
+  ]
+}

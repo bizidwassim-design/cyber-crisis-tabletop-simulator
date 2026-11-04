@@ -1,0 +1,305 @@
+{
+  "schema": "cyber-crisis-tabletop/1.0",
+  "organisation": "Northwind Logistics (fictional)",
+  "scenario": {
+    "id": "ransomware-month-end",
+    "title": "Locked at month-end",
+    "type": "Ransomware with data theft"
+  },
+  "startedAt": "2026-11-04T09:00:00Z",
+  "finishedAt": "2026-11-04T10:00:00Z",
+  "timed": true,
+  "secondsPerDecision": 90,
+  "names": {
+    "ciso": "A. Martin",
+    "cio": "R. Haddad",
+    "legal": "S. Tremblay",
+    "facilitator": "J. Okafor"
+  },
+  "score": {
+    "got": 29,
+    "max": 32,
+    "pct": 91,
+    "band": {
+      "key": "ready",
+      "label": "Ready",
+      "text": "The team made sound decisions in time and kept the right people informed."
+    }
+  },
+  "dimensions": {
+    "decision": 88,
+    "timeliness": 100,
+    "communication": 88
+  },
+  "roles": [
+    {
+      "key": "ciso",
+      "role": "CISO",
+      "name": "A. Martin",
+      "decisions": 2,
+      "pct": 100
+    },
+    {
+      "key": "cio",
+      "role": "CIO",
+      "name": "R. Haddad",
+      "decisions": 3,
+      "pct": 83
+    },
+    {
+      "key": "legal",
+      "role": "Legal counsel",
+      "name": "S. Tremblay",
+      "decisions": 3,
+      "pct": 92
+    }
+  ],
+  "meters": {
+    "ops": 100,
+    "data": 95,
+    "legal": 95,
+    "rep": 100
+  },
+  "uninsuredCost": 195000,
+  "bestDecisions": 6,
+  "timeouts": 0,
+  "averageSeconds": 57,
+  "log": [
+    {
+      "inject": "R1",
+      "clock": "Fri 23:10 · T+0:00",
+      "title": "Mass encryption on the server estate",
+      "lead": "ciso",
+      "choice": "Open an S1 crisis bridge, isolate the affected servers and network segments through the EDR and firewall rules, and cut remote access (VPN and RDP gateways) until the scope is known.",
+      "seconds": 41,
+      "timedOut": false,
+      "informed": [
+        "exec",
+        "staff"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "Encryption stops spreading at 23:31: 52 servers are hit. The warehouses switch to paper pick lists, and the bridge has an incident manager and a scribe."
+    },
+    {
+      "inject": "R2",
+      "clock": "Fri 23:50 · T+0:40",
+      "title": "Someone is in the backup console",
+      "lead": "cio",
+      "choice": "Disable adm-svc-backup, reset its password, and keep coordinating on the usual email and chat.",
+      "seconds": 77,
+      "timedOut": false,
+      "informed": [
+        "exec",
+        "irfirm"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 1,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "The deletion stops, but the attacker holds a second admin account and reads your chat channel: the negotiator will later quote your own messages."
+    },
+    {
+      "inject": "R3",
+      "clock": "Sat 00:40 · T+1:30",
+      "title": "The policy clock",
+      "lead": "legal",
+      "choice": "Notify the insurer now, engage the panel breach coach so that forensic work runs under legal privilege, and report the extortion to law enforcement.",
+      "seconds": 35,
+      "timedOut": false,
+      "informed": [
+        "insurer",
+        "law",
+        "irfirm"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "The panel firm is on the bridge by 02:00 under counsel's engagement letter. Forensic costs are covered, and the police case number goes in the record."
+    },
+    {
+      "inject": "R4",
+      "clock": "Sat 03:10 · T+4:00",
+      "title": "The ransom demand",
+      "lead": "legal",
+      "choice": "Recommend no payment decision tonight: run a sanctions check, let the insurer's negotiator open contact only to gain time and information, and decide on the basis of whether a clean restore is possible.",
+      "seconds": 62,
+      "timedOut": false,
+      "informed": [
+        "exec",
+        "insurer",
+        "law"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "The negotiator buys four days and gets a file listing that shows what was taken. The CEO accepts the recommendation and records it."
+    },
+    {
+      "inject": "R5",
+      "clock": "Sat 07:10 · T+8:00",
+      "title": "The restore plan",
+      "lead": "cio",
+      "choice": "Restore all 140 servers in parallel to finish sooner.",
+      "seconds": 58,
+      "timedOut": false,
+      "informed": [
+        "staff",
+        "customers",
+        "comms"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 1,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "Bandwidth saturates and nothing is usable for 48 hours; two restored servers still carry the attacker's scheduled task and have to be rebuilt."
+    },
+    {
+      "inject": "R6",
+      "clock": "Sat 13:10 · T+14:00",
+      "title": "What left the building",
+      "lead": "legal",
+      "choice": "Record the awareness time now, start the clocks (GDPR 72 hours, Québec Law 25, PIPEDA), submit a phased notification to the lead regulator with what is known, and prepare the employee letter with payroll safeguards.",
+      "seconds": 70,
+      "timedOut": false,
+      "informed": [
+        "dpo",
+        "staff"
+      ],
+      "missed": [
+        "regulator"
+      ],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 0
+      },
+      "points": 3,
+      "max": 4,
+      "consequence": "The lead regulator receives an initial notice on Sunday with a follow-up date. The employee letter is ready with a payroll call line and a monitoring offer."
+    },
+    {
+      "inject": "R7",
+      "clock": "Sat 21:10 · T+22:00",
+      "title": "The leak site and the journalist",
+      "lead": "ciso",
+      "choice": "Approve a factual holding statement: incident confirmed, systems being restored, personal data involved and people being contacted, no comment on any negotiation. Brief staff and key customers before it goes out.",
+      "seconds": 49,
+      "timedOut": false,
+      "informed": [
+        "comms",
+        "exec",
+        "staff",
+        "customers"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "The article quotes your statement in full. Staff and the three largest customers heard it from you first."
+    },
+    {
+      "inject": "R8",
+      "clock": "Sun 23:10 · T+48:00",
+      "title": "Back by Monday 07:00?",
+      "lead": "cio",
+      "choice": "Bring back identity, payroll and the warehouse system under heightened monitoring, keep everything else isolated until the hunt over the full dwell period is clean, and write down the criteria for \"contained\" and \"evicted\".",
+      "seconds": 66,
+      "timedOut": false,
+      "informed": [
+        "exec",
+        "staff",
+        "customers"
+      ],
+      "missed": [],
+      "note": "",
+      "score": {
+        "decision": 2,
+        "timeliness": 1,
+        "communication": 1
+      },
+      "points": 4,
+      "max": 4,
+      "consequence": "Payroll runs on time and the warehouses ship on Monday. The remaining servers return on Wednesday after a clean hunt."
+    }
+  ],
+  "actions": [
+    {
+      "inject": "R2",
+      "owner": "cio",
+      "action": "With a domain admin compromised, assume email and chat are read: move to an out-of-band channel.",
+      "refs": [
+        {
+          "doc": "playbooks/privileged-account-compromise.md",
+          "anchor": "4-decision-points",
+          "label": "Privileged account compromise · D1, D3, D4, D5"
+        }
+      ]
+    },
+    {
+      "inject": "R5",
+      "owner": "cio",
+      "action": "Recover by business priority and publish the order; parallel restores starve the systems that matter.",
+      "refs": [
+        {
+          "doc": "playbooks/malware-outbreak.md",
+          "anchor": "4-decision-points",
+          "label": "Malware outbreak · D4"
+        },
+        {
+          "doc": "playbooks/privileged-account-compromise.md",
+          "anchor": "4-decision-points",
+          "label": "Privileged account compromise · D5"
+        }
+      ]
+    },
+    {
+      "inject": "R6",
+      "owner": "legal",
+      "action": "Add Data protection regulator to the notification list for this decision.",
+      "refs": []
+    }
+  ],
+  "hotwash": [
+    "Who owned the decision to isolate, and how long did it take to make it?",
+    "Did we know the insurer's notice period and panel requirements before tonight?",
+    "Were the backups really out of reach of a domain admin account?",
+    "Where was the awareness time for the data breach recorded, and by whom?",
+    "What would we have done if the CEO had been unreachable?"
+  ]
+}

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cyber crisis tabletop simulator: ransomware and business email compromise scenarios, timed decisions for the CISO, CIO and Legal, simulated consequences and a performance report. Runs entirely in your browser.">
+  <meta name="color-scheme" content="light dark">
+  <title>Cyber Crisis Tabletop Simulator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c62f2f'/%3E%3Cpath d='M16 7v10M16 21v3' stroke='white' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the exercise</a>
+
+  <header class="site-header">
+    <div class="wrap header-row">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Cyber Crisis Tabletop Simulator</p>
+          <p class="brand-tag">Incident response · Crisis management · Executive readiness</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="btn-home" class="btn btn-ghost" hidden>Leave exercise</button>
+        <button type="button" id="theme-toggle" class="btn btn-ghost" aria-pressed="false">Dark theme</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <p class="sr-only" id="announcer" aria-live="polite"></p>
+
+    <!-- 1. Start -->
+    <section id="screen-start" class="screen" aria-labelledby="start-title">
+      <div class="resume" id="resume" role="status" hidden>
+        <span id="resume-text"></span>
+        <span class="resume-actions">
+          <button type="button" class="btn" id="btn-resume">Resume</button>
+          <button type="button" class="btn btn-ghost" id="btn-discard">Discard</button>
+        </span>
+      </div>
+
+      <div class="intro">
+        <h1 id="start-title">Rehearse the worst night of the year, before it happens.</h1>
+        <p class="lede">A facilitated tabletop for the CISO, the CIO and Legal. Each inject arrives with a clock: pick a decision, say who you tell, and watch the simulated consequences. At the end you get a scored report, role by role, with the playbook references behind every call.</p>
+        <p class="fineprint">All organisations, people, amounts and systems are fictional. Nothing leaves your browser.</p>
+      </div>
+
+      <form id="setup" class="setup" novalidate>
+        <fieldset class="card">
+          <legend>1. Choose a scenario</legend>
+          <div class="scenario-grid" id="scenario-list"></div>
+        </fieldset>
+
+        <div class="setup-cols">
+          <fieldset class="card">
+            <legend>2. Assign the roles</legend>
+            <p class="hint">Optional. Names appear on the decision owner badge and in the report.</p>
+            <div class="role-inputs" id="role-inputs"></div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend>3. Set the pressure</legend>
+            <label class="field">Time per decision
+              <select id="seconds">
+                <option value="60">60 seconds: hot seat</option>
+                <option value="90" selected>90 seconds: standard</option>
+                <option value="120">2 minutes: first run</option>
+                <option value="180">3 minutes: discussion</option>
+                <option value="0">Untimed: facilitator paces it</option>
+              </select>
+            </label>
+            <p class="hint">When the clock runs out, the inject resolves as "no decision" and the situation gets worse.</p>
+            <label class="field">Organisation name in the report
+              <input id="org" type="text" value="Northwind Logistics (fictional)" maxlength="80" autocomplete="off">
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="setup-actions">
+          <button type="submit" class="btn btn-primary" id="btn-start">Brief the team</button>
+          <button type="button" class="btn" id="btn-sample">Open the sample report</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2. Briefing -->
+    <section id="screen-brief" class="screen" aria-labelledby="brief-title" hidden>
+      <p class="eyebrow" id="brief-type"></p>
+      <h1 id="brief-title">Briefing</h1>
+      <div class="brief-cols">
+        <div>
+          <h2 class="h3">Setting</h2>
+          <p id="brief-setting"></p>
+          <h2 class="h3">Your mission</h2>
+          <p id="brief-text"></p>
+          <h2 class="h3">How each inject is scored</h2>
+          <table class="score-key">
+            <thead><tr><th scope="col">Dimension</th><th scope="col">Points</th><th scope="col">What earns them</th></tr></thead>
+            <tbody>
+              <tr><td>Decision</td><td>0 to 2</td><td>2 for the call the playbook recommends, 1 for a defensible one, 0 for a harmful one.</td></tr>
+              <tr id="key-time"><td>Timeliness</td><td>0 or 1</td><td>Decided before the clock ran out.</td></tr>
+              <tr><td>Communication</td><td>0 or 1</td><td>Everyone who must know is informed, with at most two extra people.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="card" aria-labelledby="brief-aside-title">
+          <h2 class="h3" id="brief-aside-title">Around the table</h2>
+          <ul class="role-list" id="brief-roles"></ul>
+          <h2 class="h3">Playbooks in play</h2>
+          <ul class="link-list" id="brief-playbooks"></ul>
+        </aside>
+      </div>
+      <div class="setup-actions">
+        <button type="button" class="btn btn-primary" id="btn-go">Start the clock</button>
+        <button type="button" class="btn btn-ghost" id="btn-back">Back</button>
+      </div>
+    </section>
+
+    <!-- 3. Exercise -->
+    <div id="screen-play" class="play" hidden>
+      <section class="stage" aria-labelledby="inject-title">
+        <!-- Inject -->
+        <form id="inject" novalidate>
+          <div class="inject-head">
+            <span class="inject-id" id="inject-id"></span>
+            <span class="inject-clock" id="inject-clock"></span>
+            <span class="inject-from" id="inject-from"></span>
+          </div>
+          <h1 id="inject-title">Inject</h1>
+          <p class="owner" id="inject-owner"></p>
+          <div class="arrival" id="inject-arrival" hidden></div>
+          <p class="inject-text" id="inject-text"></p>
+
+          <div class="timer" id="timer">
+            <div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div>
+            <span class="timer-num" id="timer-num" aria-hidden="true"></span>
+            <button type="button" class="btn btn-ghost btn-small" id="btn-pause" aria-pressed="false">Pause</button>
+          </div>
+
+          <fieldset class="options">
+            <legend>Decision</legend>
+            <div id="inject-options"></div>
+          </fieldset>
+
+          <fieldset class="inform">
+            <legend>Who do you inform now?</legend>
+            <div class="chips" id="inject-inform"></div>
+          </fieldset>
+
+          <label class="field">Decision note for the log (optional)
+            <input id="inject-note" type="text" maxlength="300" autocomplete="off" placeholder="Why this call, and who approved it">
+          </label>
+
+          <p class="form-error" id="inject-error" role="alert"></p>
+          <div class="setup-actions">
+            <button type="submit" class="btn btn-primary" id="btn-decide">Record decision</button>
+          </div>
+        </form>
+
+        <!-- Outcome -->
+        <div id="outcome" hidden>
+          <p class="eyebrow" id="outcome-eyebrow"></p>
+          <h1 id="outcome-title" tabindex="-1">Outcome</h1>
+          <p class="choice" id="outcome-choice"></p>
+          <p class="consequence" id="outcome-consequence"></p>
+          <div class="outcome-grid">
+            <div class="card">
+              <h2 class="h3">Points</h2>
+              <ul class="points" id="outcome-points"></ul>
+            </div>
+            <div class="card">
+              <h2 class="h3">Impact</h2>
+              <ul class="deltas" id="outcome-deltas"></ul>
+            </div>
+          </div>
+          <div class="playbook card">
+            <h2 class="h3">What the playbook says</h2>
+            <p id="outcome-guidance"></p>
+            <ul class="link-list" id="outcome-refs"></ul>
+          </div>
+          <div class="setup-actions">
+            <button type="button" class="btn btn-primary" id="btn-next">Next inject</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="board" aria-label="Situation board">
+        <p class="board-title">Situation board</p>
+        <p class="board-scenario" id="board-scenario"></p>
+        <div class="board-clock"><span class="label">Scenario clock</span><span id="board-clock"></span></div>
+        <ol class="progress" id="board-progress"></ol>
+        <ul class="meters" id="board-meters"></ul>
+        <div class="cost"><span class="label">Uninsured cost (simulated)</span><span id="board-cost"></span></div>
+      </aside>
+    </div>
+
+    <!-- 4. Report -->
+    <section id="screen-report" class="screen report" aria-labelledby="report-title" hidden>
+      <div class="sample-banner" id="sample-banner" role="status" hidden>
+        <strong>Sample report.</strong> A scripted run by a fictional crisis team, so you can see what the debrief looks like.
+      </div>
+      <p class="eyebrow" id="report-eyebrow"></p>
+      <h1 id="report-title">Debrief</h1>
+      <div class="report-head">
+        <div class="score-dial">
+          <span class="score-num" id="report-score"></span>
+          <span class="pill" id="report-band"></span>
+        </div>
+        <p id="report-band-text"></p>
+      </div>
+
+      <div class="kpis" id="report-kpis"></div>
+
+      <div class="report-cols">
+        <div class="card">
+          <h2 class="h3">By role</h2>
+          <table>
+            <thead><tr><th scope="col">Role</th><th scope="col">Decisions led</th><th scope="col">Score</th></tr></thead>
+            <tbody id="report-roles"></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h2 class="h3">End state</h2>
+          <ul class="meters" id="report-meters"></ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h3">Decision log</h2>
+        <div class="table-scroll">
+          <table class="log">
+            <thead><tr><th scope="col">Clock</th><th scope="col">Inject</th><th scope="col">Lead</th><th scope="col">Decision</th><th scope="col">Time</th><th scope="col">Missed</th><th scope="col">Points</th></tr></thead>
+            <tbody id="report-log"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="report-cols">
+        <div class="card">
+          <h2 class="h3">Improvement actions</h2>
+          <ul class="actions" id="report-actions"></ul>
+        </div>
+        <div class="card">
+          <h2 class="h3">Hot wash</h2>
+          <ol class="hotwash" id="report-hotwash"></ol>
+        </div>
+      </div>
+
+      <div class="setup-actions no-print">
+        <button type="button" class="btn btn-primary" id="btn-md">Download report (Markdown)</button>
+        <button type="button" class="btn" id="btn-json">Download data (JSON)</button>
+        <button type="button" class="btn" id="btn-print">Print or save as PDF</button>
+        <button type="button" class="btn btn-ghost" id="btn-new">New exercise</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Open source under the MIT License. Scenarios and guidance build on the <a href="https://github.com/bizidwassim-design/incident-response-playbooks">Incident Response Playbooks</a> pack. Training aid only: it does not replace your own plan, counsel or regulator guidance. <a href="https://github.com/bizidwassim-design/cyber-crisis-tabletop-simulator">Source on GitHub</a>.</p>
+    </div>
+  </footer>
+
+  <script src="data/scenarios.js"></script>
+  <script src="data/samples.js"></script>
+  <script src="assets/engine.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
