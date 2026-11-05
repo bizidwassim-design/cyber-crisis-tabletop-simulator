@@ -66,7 +66,7 @@ data/samples.js            two scripted fictional runs used for the sample repor
 examples/                  generated sample reports (JSON and Markdown)
 docs/facilitator-guide.md  how to run a session with a leadership team
 docs/writing-scenarios.md  how to add your own scenario
-scripts/                   check_scenarios.js (validation, every path played) and build_examples.js
+scripts/                   check_scenarios.js (120 single-decision cases, not exhaustive branching) and build_examples.js
 ```
 
 ## Run a session
@@ -104,6 +104,15 @@ node scripts/build_examples.js
 
 ## Disclaimer
 
+### Review notes (5 November 2026)
+
+- This is a single-screen facilitated exercise, not a synchronised multiplayer service.
+- Resume restores completed decisions; the current inject timer restarts after reload. Pause and reload mean timing is a discussion aid, not tamper-resistant exam evidence.
+- Tests cover every option and timeout at each inject in timed and untimed modes, plus best/worst runs. They do not exhaust every combination of branching decisions.
+- The communication rubric is a scenario-specific teaching model, not a rule to limit mandatory notification recipients.
+- Legal notification regimes have distinct jurisdiction and risk thresholds. Counsel engagement does not automatically create privilege or insurance coverage.
+- References: [CNIL breach notification](https://cnil.fr/fr/services-en-ligne/notifier-une-violation-de-donnees-personnelles), [ICO ransomware guidance](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/security/a-guide-to-data-security/ransomware-and-data-protection-compliance/), [PIPEDA section 10.1](https://laws.justice.gc.ca/eng/acts/P-8.6/FullText.html), [Quebec privacy incident guidance](https://www.cai.gouv.qc.ca/protection-renseignements-personnels/information-entreprises-privees/incidents-confidentialite-mesures-securite-entreprises).
+
 A training aid. The scenarios, organisations, people, amounts and outcomes are fictional and simplified. Notification
 deadlines and legal positions are illustrations: confirm the rules that apply to you with counsel, your insurer and
 your regulators. Scores measure the exercise, not your organisation's real readiness.
@@ -128,3 +137,4 @@ juridique, réputation, coût non assuré), et les décisions précédentes modi
 qualité des décisions, le respect du temps et la communication, par rôle, avec un renvoi vers les
 [Incident Response Playbooks](https://github.com/bizidwassim-design/incident-response-playbooks) pour chaque décision.
 Tout s'exécute dans le navigateur, sans serveur ni suivi. Licence MIT.
+

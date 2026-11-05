@@ -54,7 +54,7 @@
   }
   function initTheme() {
     var t = null; try { t = localStorage.getItem(THEME); } catch (e) { t = null; }
-    applyTheme(t);
+    applyTheme(t || "light");
     if (window.matchMedia) {
       var mq = window.matchMedia("(prefers-color-scheme: dark)");
       var follow = function () { if (!document.documentElement.getAttribute("data-theme")) applyTheme(null); };
@@ -397,3 +397,4 @@
 
   init();
 })();
+

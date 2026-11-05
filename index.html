@@ -8,7 +8,7 @@
   <meta name="color-scheme" content="light dark">
   <title>Cyber Crisis Tabletop Simulator</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23c62f2f'/%3E%3Cpath d='M16 7v10M16 21v3' stroke='white' stroke-width='3.4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=crisis-studio-20261105">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to the exercise</a>
@@ -16,9 +16,9 @@
   <header class="site-header">
     <div class="wrap header-row">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-mark" aria-hidden="true">CC</span>
         <div>
-          <p class="brand-name">Cyber Crisis Tabletop Simulator</p>
+          <p class="brand-name">Cyber Crisis <span class="brand-accent">Studio</span></p>
           <p class="brand-tag">Incident response · Crisis management · Executive readiness</p>
         </div>
       </div>
@@ -43,10 +43,12 @@
       </div>
 
       <div class="intro">
-        <h1 id="start-title">Rehearse the worst night of the year, before it happens.</h1>
+        <p class="eyebrow">THE EXECUTIVE CYBER RANGE</p>
+        <h1 id="start-title">Lead through the crisis.<br>Before it becomes real.</h1>
         <p class="lede">A facilitated tabletop for the CISO, the CIO and Legal. Each inject arrives with a clock: pick a decision, say who you tell, and watch the simulated consequences. At the end you get a scored report, role by role, with the playbook references behind every call.</p>
         <p class="fineprint">All organisations, people, amounts and systems are fictional. Nothing leaves your browser.</p>
       </div>
+      <div class="capability-strip" role="group" aria-label="Exercise capabilities"><span><strong>02</strong> crisis scenarios</span><span><strong>15</strong> decision injects</span><span><strong>03</strong> executive roles</span><span><strong>01</strong> actionable debrief</span></div>
 
       <form id="setup" class="setup" novalidate>
         <fieldset class="card">
@@ -57,7 +59,7 @@
         <div class="setup-cols">
           <fieldset class="card">
             <legend>2. Assign the roles</legend>
-            <p class="hint">Optional. Names appear on the decision owner badge and in the report.</p>
+            <p class="hint">One shared screen, one facilitator. Roles are decision owners, not separate online player accounts. Use initials; names are optional and appear in exported reports.</p>
             <div class="role-inputs" id="role-inputs"></div>
           </fieldset>
 
@@ -72,7 +74,7 @@
                 <option value="0">Untimed: facilitator paces it</option>
               </select>
             </label>
-            <p class="hint">When the clock runs out, the inject resolves as "no decision" and the situation gets worse.</p>
+            <p class="hint">When the clock runs out, the inject resolves as "no decision". Pause is facilitator-controlled. Resuming after a reload restarts the current inject's clock.</p>
             <label class="field">Organisation name in the report
               <input id="org" type="text" value="Northwind Logistics (fictional)" maxlength="80" autocomplete="off">
             </label>
@@ -80,7 +82,7 @@
         </div>
 
         <div class="setup-actions">
-          <button type="submit" class="btn btn-primary" id="btn-start">Brief the team</button>
+          <button type="submit" class="btn btn-primary" id="btn-start">Enter the briefing →</button>
           <button type="button" class="btn" id="btn-sample">Open the sample report</button>
         </div>
       </form>
@@ -204,6 +206,7 @@
       </div>
       <p class="eyebrow" id="report-eyebrow"></p>
       <h1 id="report-title">Debrief</h1>
+      <p class="report-caveat">Exercise performance—not a certification of real-world readiness. Costs, operational impacts and outcomes are fictional teaching assumptions, not forecasts.</p>
       <div class="report-head">
         <div class="score-dial">
           <span class="score-num" id="report-score"></span>
@@ -260,6 +263,7 @@
 
   <footer class="site-footer">
     <div class="wrap">
+      <p class="signature">Designed for better decisions <span> / </span> Wassim Bizid · Cybersecurity &amp; GRC</p>
       <p>Open source under the MIT License. Scenarios and guidance build on the <a href="https://github.com/bizidwassim-design/incident-response-playbooks">Incident Response Playbooks</a> pack. Training aid only: it does not replace your own plan, counsel or regulator guidance. <a href="https://github.com/bizidwassim-design/cyber-crisis-tabletop-simulator">Source on GitHub</a>.</p>
     </div>
   </footer>
@@ -270,3 +274,4 @@
   <script src="assets/app.js"></script>
 </body>
 </html>
+

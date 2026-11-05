@@ -139,7 +139,7 @@
       "clock": "Tue 12:00 · T+2:30",
       "title": "What did they read?",
       "lead": "legal",
-      "choice": "Run a scoped search of the mailbox audit log for items accessed and synchronised during the eleven days, record the awareness time, and assess the risk to individuals against the 72-hour clock.",
+      "choice": "Preserve and review available mailbox audit and synchronisation records, document when the breach became known, and have Legal and the DPO assess personal-data exposure, evidence limitations and each applicable notification threshold and deadline.",
       "seconds": 61,
       "timedOut": false,
       "informed": [

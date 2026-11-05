@@ -116,7 +116,7 @@
       "clock": "Sat 00:40 · T+1:30",
       "title": "The policy clock",
       "lead": "legal",
-      "choice": "Notify the insurer now, engage the panel breach coach so that forensic work runs under legal privilege, and report the extortion to law enforcement.",
+      "choice": "Notify the insurer now, engage the panel breach coach to assess privilege and direct forensic work where appropriate, and report the extortion to law enforcement.",
       "seconds": 35,
       "timedOut": false,
       "informed": [
@@ -188,7 +188,7 @@
       "clock": "Sat 13:10 · T+14:00",
       "title": "What left the building",
       "lead": "legal",
-      "choice": "Record the awareness time now, start the clocks (GDPR 72 hours, Québec Law 25, PIPEDA), submit a phased notification to the lead regulator with what is known, and prepare the employee letter with payroll safeguards.",
+      "choice": "Record when the breach became known, have Legal and the DPO assess each applicable regime and risk threshold, notify the relevant authorities within their own deadlines, and prepare timely notices to affected employees with payroll safeguards.",
       "seconds": 70,
       "timedOut": false,
       "informed": [

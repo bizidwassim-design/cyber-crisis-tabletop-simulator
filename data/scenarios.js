@@ -81,7 +81,7 @@
             text: "The backup console shows that at 22:58 the domain admin account adm-svc-backup signed in from a jump server, set retention to one day and started deleting restore points. The immutable cloud copy lives in a separate tenant; its last snapshot is Thursday 02:00.",
             inform: ["exec", "irfirm"],
             options: [
-              { id: "a", decision: 2, label: "Treat identity and backups as compromised: move the response to an out-of-band channel, lock the cloud backup tenant with break-glass accounts, disable the account, and plan a full rotation of privileged credentials, including the Kerberos ticket-granting key twice.",
+              { id: "a", decision: 2, label: "Treat identity and backups as compromised: move the response to an out-of-band channel, secure the separate backup tenant with trusted emergency access, disable the compromised account, and have identity specialists plan privileged credential recovery, including a staged two-reset KRBTGT procedure when indicated.",
                 effects: { ops: -5, cost: 15000 }, sets: { backupsProtected: true, channelCompromised: false },
                 consequence: "The deletion job stops with Thursday's immutable copy intact. The bridge moves to a separate messaging tenant and phones; the attacker loses sight of your plans." },
               { id: "b", decision: 0, label: "Start restoring the warehouse system from the newest restore point tonight so it is ready for Monday.",
@@ -104,7 +104,7 @@
             text: "The cyber policy requires notice within 24 hours and the use of the insurer's panel incident-response firm; fees of non-panel firms are not covered. The ransom note says: \"We took 200 GB. Leak site in 72 hours.\"",
             inform: ["insurer", "law", "irfirm"],
             options: [
-              { id: "a", decision: 2, label: "Notify the insurer now, engage the panel breach coach so that forensic work runs under legal privilege, and report the extortion to law enforcement.",
+              { id: "a", decision: 2, label: "Notify the insurer now, engage the panel breach coach to assess privilege and direct forensic work where appropriate, and report the extortion to law enforcement.",
                 effects: { cost: 5000 }, sets: { insurerNotified: true },
                 consequence: "The panel firm is on the bridge by 02:00 under counsel's engagement letter. Forensic costs are covered, and the police case number goes in the record." },
               { id: "b", decision: 0, label: "Wait until forensics confirm whether data left before calling the insurer, to avoid a premium increase.",
@@ -114,11 +114,11 @@
               { id: "c", decision: 1, label: "Hire the forensic firm you already know directly tonight, and notify the insurer on Monday.",
                 effects: { legal: -5, cost: 120000 }, sets: { insurerNotified: false },
                 consequence: "Work starts fast, but the firm is not on the panel: the insurer covers 40% of the fees and the reports are not privileged.",
-                lesson: "Engage forensics through counsel and the insurer's panel so that the work is privileged and covered." }
+                lesson: "Coordinate with counsel and the insurer's panel. Privilege and coverage depend on the applicable law, purpose of the engagement and policy terms; neither is automatic." }
             ],
             timeout: { effects: { legal: -10, cost: 150000 }, sets: { insurerNotified: false },
               consequence: "No decision was recorded in time. Nobody owned the insurer call, and the notice period kept running." },
-            guidance: { text: "Engage external IR through Legal for privilege; notify the insurer within its notice period; report extortion and data theft to law enforcement.",
+            guidance: { text: "Ask Legal how to structure external IR and assess privilege; counsel involvement alone does not guarantee protection. Confirm policy coverage and notification requirements with the insurer and report extortion through the appropriate channels.",
               refs: [{ doc: "playbooks/privileged-account-compromise.md", anchor: "4-decision-points", label: "Privileged account compromise · D7" }, { doc: "playbooks/data-breach-personal-data.md", anchor: "4-decision-points", label: "Data breach · D5, D7" }] }
           },
           {
@@ -179,7 +179,7 @@
             text: "Forensics confirm that 180 GB was copied to a cloud storage service on Wednesday night, two days before the encryption. It includes the HR share (2,400 employees: home addresses, dates of birth and payroll bank details) and customer contracts with pricing. Employees live in Québec, France and the UK.",
             inform: ["dpo", "regulator", "staff"],
             options: [
-              { id: "a", decision: 2, label: "Record the awareness time now, start the clocks (GDPR 72 hours, Québec Law 25, PIPEDA), submit a phased notification to the lead regulator with what is known, and prepare the employee letter with payroll safeguards.",
+              { id: "a", decision: 2, label: "Record when the breach became known, have Legal and the DPO assess each applicable regime and risk threshold, notify the relevant authorities within their own deadlines, and prepare timely notices to affected employees with payroll safeguards.",
                 effects: { cost: 40000 }, sets: { notified: true },
                 consequence: "The lead regulator receives an initial notice on Sunday with a follow-up date. The employee letter is ready with a payroll call line and a monitoring offer." },
               { id: "b", decision: 0, label: "Wait for the final forensic report, due in two weeks, before deciding whether to notify.",
@@ -193,7 +193,7 @@
             ],
             timeout: { effects: { legal: -15, cost: 100000 }, sets: { notified: false },
               consequence: "No decision was recorded in time. The awareness time was never written down, and the clocks are now disputed." },
-            guidance: { text: "Personal data is in scope, so the clocks start now. Assess the risk to individuals, notify the lead authority within 72 hours even if facts are incomplete, and offer monitoring when financial data is exposed.",
+            guidance: { text: "Document awareness and assess risk and jurisdiction with Legal and the DPO. EU/UK GDPR authority notification is generally due without undue delay and within 72 hours where its risk threshold is met; high-risk individual notices are separate. Quebec uses a serious-injury risk threshold and diligent notification; PIPEDA, where applicable, uses real risk of significant harm and notification as soon as feasible. Do not apply one universal 72-hour rule. Use phased notifications where permitted.",
               refs: [{ doc: "playbooks/data-breach-personal-data.md", anchor: "4-decision-points", label: "Data breach · D1 to D4, D6" }] }
           },
           {
@@ -241,7 +241,7 @@
             ],
             timeout: { effects: { ops: -10, cost: 150000 },
               consequence: "No decision reached the CEO, who reconnected the warehouses alone on Monday morning." },
-            guidance: { text: "Contained: no new detections for 24 hours with blocking rules live. Evicted: full rotation, a clean persistence hunt over the whole dwell period, and 72 hours of clean monitoring.",
+            guidance: { text: "For this exercise, use 24 hours without new detections as one containment checkpoint and 72 hours of clean monitoring as one eviction checkpoint, alongside credential recovery and a persistence hunt over the dwell period. These are scenario assumptions, not universal clearance periods: absence of alerts alone does not prove eviction. Agree risk-based return-to-service criteria with the incident commander and recovery specialists.",
               refs: [{ doc: "playbooks/malware-outbreak.md", anchor: "4-decision-points", label: "Malware outbreak · D7" }, { doc: "playbooks/privileged-account-compromise.md", anchor: "4-decision-points", label: "Privileged account compromise · D8" }] }
           }
         ],
@@ -338,7 +338,7 @@
             text: "The clerk's mailbox holds three years of supplier correspondence, 40 employee expense claims with bank details, and a customer master-data export that Sales sent in March. The attacker had access for eleven days.",
             inform: ["dpo", "insurer"],
             options: [
-              { id: "a", decision: 2, label: "Run a scoped search of the mailbox audit log for items accessed and synchronised during the eleven days, record the awareness time, and assess the risk to individuals against the 72-hour clock.",
+              { id: "a", decision: 2, label: "Preserve and review available mailbox audit and synchronisation records, document when the breach became known, and have Legal and the DPO assess personal-data exposure, evidence limitations and each applicable notification threshold and deadline.",
                 effects: { cost: 15000 }, sets: { dataScoped: true },
                 consequence: "The audit log shows the attacker synchronised the whole mailbox. The DPO assesses a risk to individuals and schedules the regulator notice within the deadline." },
               { id: "b", decision: 0, label: "Assume nothing was read: the attacker only wanted the payment.",
@@ -446,3 +446,4 @@
   if (typeof module === "object" && module.exports) module.exports = DATA;
   else root.TTX_DATA = DATA;
 })(this);
+
